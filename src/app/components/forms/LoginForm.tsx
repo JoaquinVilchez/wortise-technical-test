@@ -29,11 +29,11 @@ export default function LoginForm() {
       {
         email: data.email,
         password: data.password,
-        callbackURL: '/dashboard',
+        callbackURL: '/',
       },
       {
         onSuccess: () => {
-          router.push('/dashboard');
+          router.push('/');
         },
         onError: (ctx) => {
           setErrorMessage(ctx.error.message);
