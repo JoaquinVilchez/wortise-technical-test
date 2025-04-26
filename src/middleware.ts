@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const publicPaths = ['/login', '/signup'];
-  const protectedPaths = ['/'];
+  const protectedPaths = ['/', '/articles'];
 
   if (session && publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL('/', request.url));
@@ -20,5 +20,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/login', '/signup'],
+  matcher: ['/', '/articles', '/login', '/signup'],
 };

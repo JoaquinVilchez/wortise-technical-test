@@ -8,8 +8,8 @@ export default function DashboardLayout({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen flex items-center justify-center">
-        <div className="w-full max-w-sm">{children}</div>
+      <main className="min-h-screen container max-w-screen-xl mx-auto">
+        <div className="w-full">{children}</div>
       </main>
     </>
   );
