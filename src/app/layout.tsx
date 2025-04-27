@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import './globals.css';
+import Providers from './providers';
 
 export default function RootLayout({
   children,
@@ -7,7 +9,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <Suspense
+          fallback={
+            <div className="flex justify-center items-center h-screen">
+              Cargando...
+            </div>
+          }
+        >
+          <Providers>{children}</Providers>
+        </Suspense>
+      </body>
     </html>
   );
 }

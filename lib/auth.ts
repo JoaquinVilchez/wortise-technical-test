@@ -10,6 +10,10 @@ const setupAuth = async () => {
     emailAndPassword: {
       enabled: true,
     },
+    session: {
+      expiresIn: 60 * 60 * 24 * 7,
+      updateAge: 60 * 60 * 24,
+    },
     database: mongodbAdapter(db),
   });
 };

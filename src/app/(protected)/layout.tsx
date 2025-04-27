@@ -9,7 +9,7 @@ export default function DashboardLayout({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen container max-w-screen-xl mx-auto pb-10">
+      <main className="min-h-screen container max-w-screen-xl mx-auto">
         <div className="w-full mt-5 mx-auto px-4">{children}</div>
       </main>
       <Footer />
