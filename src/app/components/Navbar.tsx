@@ -1,14 +1,16 @@
 'use client';
 
 import { authClient } from '@/lib/auth-client';
+import { useClickOutside } from '@/src/hooks/useClickOutside';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [openOptions, setOpenOptions] = useState(false);
   const [loading, setLoading] = useState(false);
+  const optionsRef = useClickOutside(() => setOpenOptions(false));
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const router = useRouter();
@@ -29,7 +31,7 @@ export default function Navbar() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          setOpen(false);
+          setOpenOptions(false);
           router.push('/login');
         },
       },
@@ -66,7 +68,7 @@ export default function Navbar() {
             <div className="hidden md:relative md:block">
               <button
                 type="button"
-                onClick={() => setOpen((prev) => !prev)}
+                onClick={() => setOpenOptions((prev) => !prev)}
                 className="overflow-hidden rounded-full border border-gray-300 shadow-inner cursor-pointer"
               >
                 <Image
@@ -78,8 +80,9 @@ export default function Navbar() {
                 />
               </button>
 
-              {open && (
+              {openOptions && (
                 <div
+                  ref={optionsRef}
                   className="absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
                   role="menu"
                 >

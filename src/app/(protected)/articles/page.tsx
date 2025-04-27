@@ -1,14 +1,13 @@
 import ArticleCard from '../../components/ArticleCard';
+import Button from '../../components/Button';
 
-export default function Dashboard() {
+export default function Articles() {
   return (
     <div className="mt-5 mx-auto px-4">
       <div className="mb-4">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mt-10 mb-5">
           <h1 className="text-4xl font-bold">Artículos</h1>
-          <button className="text-sm cursor-pointer bg-blue-500 hover:bg-blue-400 transition text-white px-4 py-2 rounded-lg ">
-            Crear Artículo
-          </button>
+          <Button href="/articles/new">Nuevo Artículo</Button>
         </div>
         <form>
           <input
