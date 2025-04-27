@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Modal from './Modal';
 
-export default function ArticleCard() {
+export default function ArticleCard({ showAuthor = true }) {
   const [openOptions, setOpenOptions] = useState(false);
   const optionsRef = useClickOutside(() => setOpenOptions(false));
   const [openModal, setOpenModal] = useState(false);
@@ -30,12 +30,18 @@ export default function ArticleCard() {
             role="menu"
           >
             <ul className="flex flex-col">
-              <li className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer">
+              <Link
+                href="/articles/1"
+                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
+              >
                 Ver artículo
-              </li>
-              <li className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer">
-                <Link href="/articles/1/edit">Editar</Link>
-              </li>
+              </Link>
+              <Link
+                href="/articles/1/edit"
+                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
+              >
+                Editar
+              </Link>
               <li
                 className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-100 cursor-pointer"
                 onClick={() => {
@@ -77,23 +83,25 @@ export default function ArticleCard() {
                 industria ferroviaria global.
               </p>
             </div>
-            <div className="flex items-center gap-2 mt-2 md:justify-end">
-              <Link
-                href="/author/1"
-                className="md:mb-2 mr-4 flex items-center gap-2"
-              >
-                <p className="text-xs w-10 leading-3 hover:underline">
-                  Joaquín Vilchez
-                </p>
-                <Image
-                  src="/avatar.svg"
-                  width={25}
-                  height={25}
-                  alt=""
-                  className="object-cover"
-                />
-              </Link>
-            </div>
+            {showAuthor && (
+              <div className="flex items-center gap-2 mt-2 md:justify-end">
+                <Link
+                  href="/author/1"
+                  className="md:mb-2 mr-4 flex items-center gap-2"
+                >
+                  <p className="text-xs w-10 leading-3 hover:underline">
+                    Joaquín Vilchez
+                  </p>
+                  <Image
+                    src="/avatar.svg"
+                    width={25}
+                    height={25}
+                    alt=""
+                    className="object-cover"
+                  />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

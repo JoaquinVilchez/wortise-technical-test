@@ -1,24 +1,24 @@
 import AuthorCard from '../components/AuthorCard';
+import PageHeader from '../components/PageHeader';
 
 export default function Dashboard() {
   return (
-    <div className="mt-5 mx-auto px-4">
-      <h1 className="text-4xl font-bold mb-8">Autores</h1>
-
+    <>
+      <PageHeader title="Autores" />
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
+        <AuthorCard authorId={1} />
       </div>
-    </div>
+    </>
   );
 }

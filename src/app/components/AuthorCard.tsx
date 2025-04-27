@@ -1,8 +1,16 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
-export default function AuthorCard() {
+interface AuthorCardProps {
+  authorId: number;
+}
+
+export default function AuthorCard({ authorId }: AuthorCardProps) {
   return (
-    <div className="flex flex-col items-center justify-between p-4 mb-5 max-w-40 min-h-50 bg-white hover:bg-gray-50 rounded-lg shadow-md cursor-pointer hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out">
+    <Link
+      href={`author/${authorId}`}
+      className="flex flex-col items-center justify-between p-4 mb-5 max-w-40 min-h-50 bg-white hover:bg-gray-50 rounded-lg shadow-md cursor-pointer hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out"
+    >
       <Image
         src="/avatar.svg"
         width={96}
@@ -16,6 +24,6 @@ export default function AuthorCard() {
         </h2>
         <p className="text-gray-600 text-xs text-center">54 Artículos</p>
       </div>
-    </div>
+    </Link>
   );
 }
