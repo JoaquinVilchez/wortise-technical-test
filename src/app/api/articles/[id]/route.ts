@@ -2,15 +2,23 @@ import { clientPromise } from '@/lib/db';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } },
-) {
+export async function GET(request: NextRequest) {
   try {
     const db = (await clientPromise).db(process.env.MONGODB_DB);
     const collection = db.collection('articles');
 
-    const article = await collection.findOne({ _id: new ObjectId(params.id) });
+    const url = new URL(request.url);
+    const pathParts = url.pathname.split('/');
+    const id = pathParts[pathParts.length - 1];
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'ID inválido o no proporcionado' },
+        { status: 400 },
+      );
+    }
+
+    const article = await collection.findOne({ _id: new ObjectId(id) });
 
     if (!article) {
       return NextResponse.json(
