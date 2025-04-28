@@ -24,7 +24,7 @@ export default function Navbar() {
         router.push('/login');
       }
     });
-  });
+  }, [router]);
 
   const onSubmit = async () => {
     setLoading(true);

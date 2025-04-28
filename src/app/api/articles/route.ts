@@ -10,19 +10,12 @@ export async function POST(req: Request) {
     const db = (await clientPromise).db(process.env.MONGODB_DB);
     await db.collection('articles').insertOne({
       ...data,
-      authorId: '1',
+      /*Este ID esta harcodeado debido a que no puedo acceder a la session desde el servidor, pero si desde el cliente como lo hice en navbar.
+      Podria pasarlo a traves del formulario, pero no lo considero buena practica. Dejo para ultimo momento investigar
+      como acceder a la session desde el servidor y asi poder obtener el ID del usuario loggeado. */
+      authorId: '680a42ce7b61c44c610bb4fc',
       createdAt: new Date(),
     });
-
-    // const result = await getSession();
-
-    // if (!('data' in result)) {
-    //   return NextResponse.json(
-    //     { error: result.error.message },
-    //     { status: 401 },
-    //   );
-    // }
-    // const userId = result.data.user.id;
 
     return NextResponse.json({ success: true });
   } catch (err) {

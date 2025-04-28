@@ -1,12 +1,14 @@
 'use client';
 
+import { authClient } from '@/lib/authClient';
 import { useClickOutside } from '@/src/hooks/useClickOutside';
 import { useDeleteArticle } from '@/src/hooks/useDeleteArticle';
+import { useGetAuthor } from '@/src/hooks/useGetAuthor';
 import { GetArticle } from '@/src/schemas/article';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './Modal';
 
 interface ArticleCardProps {
@@ -21,12 +23,24 @@ export default function ArticleCard({
   const [openOptions, setOpenOptions] = useState(false);
   const optionsRef = useClickOutside(() => setOpenOptions(false));
   const [openModal, setOpenModal] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState('');
+  const isOwner = currentUserId === article.authorId;
 
+  const { author } = useGetAuthor(article.authorId ?? '');
   const deleteMutation = useDeleteArticle();
-
   const handleDelete = () => {
     deleteMutation.mutate({ id: article._id });
   };
+
+  useEffect(() => {
+    authClient.getSession().then((response) => {
+      if ('data' in response && response.data?.user) {
+        setCurrentUserId(response.data.user.id);
+      } else {
+        setCurrentUserId('');
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -46,27 +60,35 @@ export default function ArticleCard({
             role="menu"
           >
             <ul className="flex flex-col">
+              {/* Visible para todos */}
               <Link
                 href={`/articles/${article._id}`}
                 className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
               >
                 Ver artículo
               </Link>
-              <Link
-                href={`/articles/${article._id}/edit`}
-                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
-              >
-                Editar
-              </Link>
-              <li
-                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-100 cursor-pointer"
-                onClick={() => {
-                  setOpenOptions(false);
-                  setOpenModal(true);
-                }}
-              >
-                Eliminar
-              </li>
+
+              {/* Solo dueño */}
+              {isOwner && (
+                <>
+                  <Link
+                    href={`/articles/${article._id}/edit`}
+                    className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
+                  >
+                    Editar
+                  </Link>
+
+                  <li
+                    className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-100 cursor-pointer"
+                    onClick={() => {
+                      setOpenOptions(false);
+                      setOpenModal(true);
+                    }}
+                  >
+                    Eliminar
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         )}
@@ -94,11 +116,11 @@ export default function ArticleCard({
             {showAuthor && (
               <div className="flex items-center gap-2 mt-2 md:justify-end">
                 <Link
-                  href="/author/1"
+                  href={`/author/${article.authorId}`}
                   className="md:mb-2 mr-4 flex items-center gap-2"
                 >
-                  <p className="text-xs w-10 leading-3 hover:underline">
-                    Joaquín Vilchez
+                  <p className="text-xs w-10 leading-3 hover:underline text-right">
+                    {author?.name}
                   </p>
                   <Image
                     src="/avatar.svg"
