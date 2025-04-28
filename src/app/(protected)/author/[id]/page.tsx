@@ -2,9 +2,13 @@
 
 import ArticleCard from '@/src/app/components/ArticleCard';
 import PageHeader from '@/src/app/components/PageHeader';
+import Spinner from '@/src/app/components/Spinner';
+import { useArticles } from '@/src/hooks/useArticles';
 import Link from 'next/link';
 
 export default function Author() {
+  const { articles, isLoading } = useArticles();
+
   return (
     <>
       <PageHeader
@@ -17,12 +21,19 @@ export default function Author() {
         }
       />
       <div className="grid grid-cols-1">
-        <ArticleCard showAuthor={false} />
-        <ArticleCard showAuthor={false} />
-        <ArticleCard showAuthor={false} />
-        <ArticleCard showAuthor={false} />
-        <ArticleCard showAuthor={false} />
-        <ArticleCard showAuthor={false} />
+        <div className="grid grid-cols-1">
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            articles.map((article) => (
+              <ArticleCard
+                key={article._id}
+                article={article}
+                showAuthor={false}
+              />
+            ))
+          )}
+        </div>
       </div>
     </>
   );
