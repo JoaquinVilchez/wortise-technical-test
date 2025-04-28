@@ -15,14 +15,16 @@ interface UseGetArticlesResult {
   setPage: (page: number) => void;
 }
 
-export function useGetArticles(): UseGetArticlesResult {
+export function useGetArticles(authorId = ''): UseGetArticlesResult {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
 
   const { data, isLoading } = useQuery({
-    queryKey: ['articles', page, search],
+    queryKey: ['articles', page, search, authorId],
     queryFn: async () => {
-      const res = await fetch(`/api/articles?page=${page}&search=${search}`);
+      const res = await fetch(
+        `/api/articles?page=${page}&search=${search}&authorId=${authorId}`,
+      );
       if (!res.ok) {
         throw new Error('Error al obtener los artículos');
       }

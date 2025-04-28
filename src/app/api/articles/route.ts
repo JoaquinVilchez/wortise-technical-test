@@ -41,8 +41,13 @@ export async function GET(req: Request) {
     const page = parseInt(searchParams.get('page') || '1', 10);
     const limit = parseInt(searchParams.get('limit') || '6', 10);
     const search = searchParams.get('search') || '';
+    const authorId = searchParams.get('authorId') || '';
 
     const query: Record<string, unknown> = {};
+
+    if (authorId) {
+      query.authorId = authorId;
+    }
 
     if (search) {
       query.$or = [
