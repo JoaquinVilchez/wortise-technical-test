@@ -1,11 +1,11 @@
 'use client';
 
-import { DbArticle } from '@/src/schemas/article';
+import { GetArticle } from '@/src/schemas/article';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-interface UseArticlesResult {
-  articles: DbArticle[];
+interface UseGetArticlesResult {
+  articles: GetArticle[];
   isLoading: boolean;
   currentPage: number;
   totalPages: number;
@@ -15,7 +15,7 @@ interface UseArticlesResult {
   setPage: (page: number) => void;
 }
 
-export function useArticles(): UseArticlesResult {
+export function useGetArticles(): UseGetArticlesResult {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { useArticles } from '@/src/hooks/useArticles';
+import { useGetArticles } from '@/src/hooks/useGetArticles';
+import { GetArticle } from '@/src/schemas/article';
 import ArticleCard from '../../components/ArticleCard';
 import Button from '../../components/Button';
 import PageHeader from '../../components/PageHeader';
@@ -15,7 +16,7 @@ export default function Articles() {
     currentPage,
     totalPages,
     setPage,
-  } = useArticles();
+  } = useGetArticles();
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function Articles() {
         {isLoading ? (
           <Spinner />
         ) : (
-          articles.map((article) => (
+          articles.map((article: GetArticle) => (
             <ArticleCard key={article._id} article={article} />
           ))
         )}

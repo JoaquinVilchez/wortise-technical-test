@@ -57,13 +57,13 @@ export default function ArticleForm({
 
         <div className="grid grid-cols-1">
           <div>
-            <label htmlFor="body">Texto</label>
+            <label htmlFor="body">Cuerpo del artículo</label>
             <textarea
               id="body"
               {...register('body')}
               placeholder="Escriba el cuerpo del artículo aquí"
               className="mt-1 block w-full rounded-md px-4 py-2 border border-gray-300"
-              rows={5}
+              rows={15}
               disabled={isSubmitting}
             />
             <FormErrorMessage message={errors.body?.message} />

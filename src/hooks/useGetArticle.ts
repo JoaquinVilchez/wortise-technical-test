@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { DbArticle } from '../schemas/article';
+import { GetArticle } from '../schemas/article';
 
 export function useGetArticle(id: string) {
-  return useQuery<DbArticle>({
+  return useQuery<GetArticle>({
     queryKey: ['article', id],
     queryFn: async () => {
       const res = await fetch(`/api/articles/${id}`);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useClickOutside } from '@/src/hooks/useClickOutside';
-import { DbArticle } from '@/src/schemas/article';
+import { GetArticle } from '@/src/schemas/article';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 
 interface ArticleCardProps {
-  article: DbArticle;
+  article: GetArticle;
   showAuthor?: boolean;
 }
 

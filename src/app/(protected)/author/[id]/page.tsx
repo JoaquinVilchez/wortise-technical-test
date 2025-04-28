@@ -3,11 +3,12 @@
 import ArticleCard from '@/src/app/components/ArticleCard';
 import PageHeader from '@/src/app/components/PageHeader';
 import Spinner from '@/src/app/components/Spinner';
-import { useArticles } from '@/src/hooks/useArticles';
+import { useGetArticles } from '@/src/hooks/useGetArticles';
+import { GetArticle } from '@/src/schemas/article';
 import Link from 'next/link';
 
 export default function Author() {
-  const { articles, isLoading } = useArticles();
+  const { articles, isLoading } = useGetArticles();
 
   return (
     <>
@@ -25,7 +26,7 @@ export default function Author() {
           {isLoading ? (
             <Spinner />
           ) : (
-            articles.map((article) => (
+            articles.map((article: GetArticle) => (
               <ArticleCard
                 key={article._id}
                 article={article}

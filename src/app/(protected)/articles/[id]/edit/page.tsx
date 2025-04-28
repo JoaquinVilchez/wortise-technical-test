@@ -2,21 +2,51 @@
 
 import ArticleForm from '@/src/app/components/forms/ArticleForm';
 import PageHeader from '@/src/app/components/PageHeader';
-import { Article } from '@/src/schemas/article';
+import Spinner from '@/src/app/components/Spinner';
+import { useGetArticle } from '@/src/hooks/useGetArticle';
+import { useUpdateArticle } from '@/src/hooks/useUpdateArticle';
+import type { UpdateArticle } from '@/src/schemas/article';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { toast } from 'react-toastify';
 
-export default function EditArticle() {
-  const article: Article = {
-    title: 'Título del artículo',
-    imageUrl: 'https://example.com/image.jpg',
-    body: 'Texto del artículo',
-    createdAt: new Date(),
+export default function UpdateArticle() {
+  const { id } = useParams<{ id: string }>();
+  const { data: article, isLoading, error } = useGetArticle(id);
+
+  const updateMutation = useUpdateArticle();
+
+  const updateForm = (data: UpdateArticle) => {
+    if (!id) return;
+    updateMutation.mutate({ id, data });
   };
 
-  const updateForm = (data: Partial<Article>) => {
-    console.log('EDITAR FORMULARIO', data);
-  };
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    toast.error('Error al cargar el artículo');
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <p className="text-xl font-semibold text-gray-700">
+          Error al cargar el artículo
+        </p>
+      </div>
+    );
+  }
+
+  if (!article) {
+    toast.error('Artículo no encontrado');
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <p className="text-xl font-semibold text-gray-700">
+          Artículo no encontrado
+        </p>
+      </div>
+    );
+  }
   return (
     <>
       <PageHeader
