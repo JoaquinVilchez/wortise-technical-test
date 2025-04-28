@@ -1,9 +1,9 @@
 import { clientPromise } from '@/lib/db';
 import { ObjectId } from 'mongodb';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  req: Request,
+  request: NextRequest,
   { params }: { params: { id: string } },
 ) {
   try {
