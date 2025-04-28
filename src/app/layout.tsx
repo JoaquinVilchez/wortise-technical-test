@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import './globals.css';
@@ -20,6 +21,7 @@ export default function RootLayout({
         >
           <Providers>
             {children}
+            <Analytics />
             <ToastContainer />
           </Providers>
         </Suspense>
