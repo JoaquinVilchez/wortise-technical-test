@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wortise Technical Test - CMS de Artículos
 
-## Getting Started
+Este es un proyecto desarrollado como parte de una prueba técnica para la posición de **Desarrollador/a Fullstack (Next.js)**.
 
-First, run the development server:
+## Tecnologías utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js** (Page Router)
+- **TypeScript**
+- **Zod** (validaciones)
+- **BetterAuth** (autenticación)
+- **Tailwind CSS** (estilos)
+- **React Hook Form** (formularios)
+- **TanStack Query** (manejo de queries y caché)
+- **MongoDB** (driver nativo)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Funcionalidades requeridas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Autenticación
 
-## Learn More
+- [x] Registro de nuevos usuarios
+- [x] Inicio y cierre de sesión
+- [ ] Protección del registro con un captcha
+- [x] Uso de BetterAuth como solución de autenticación
+- [x] Rutas privadas protegidas para usuarios autenticados
 
-To learn more about Next.js, take a look at the following resources:
+### Artículos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Crear artículos
+  - [ ] (CRUD solo por el autor)
+- [x] Leer artículos
+- [x] Actualizar artículos
+- [x] Eliminar artículos
+- [x] Listado paginado de artículos creados
+- [x] Vista de detalle de cada artículo, con nombre del autor
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Página principal del CMS
 
-## Deploy on Vercel
+- [] Listado de autores registrados
+- [] Cantidad total de artículos publicados por cada autor
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Buscador (Server-side)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Búsqueda de artículos filtrando por:
+  - [x] Título
+  - [x] Texto
+  - [] Nombre del autor
+
+---
+
+## Criterios técnicos implementados
+
+- [x] Tipado fuerte en todo el proyecto (frontend y backend)
+- [x] Validaciones robustas con **Zod** en formularios y endpoints
+- [x] Consultas eficientes a la base de datos
+- [x] Uso correcto de **TanStack Query** y hooks personalizados
+- [x] Prevención de renders innecesarios
+- [x] Código limpio y organizado
+- [] Interfaz responsive
+- [x] UX mínima pero cuidada
+
+---

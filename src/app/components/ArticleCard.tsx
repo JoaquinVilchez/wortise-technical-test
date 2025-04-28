@@ -111,7 +111,6 @@ export default function ArticleCard({
         isOpen={openModal}
         onClose={() => setOpenModal(false)}
         onConfirm={() => {
-          // Acá deberías llamar a tu función de eliminar
           console.log('Artículo eliminado');
           setOpenModal(false);
         }}

@@ -24,7 +24,7 @@ export function useArticles(): UseArticlesResult {
     queryFn: async () => {
       const res = await fetch(`/api/articles?page=${page}&search=${search}`);
       if (!res.ok) {
-        throw new Error('Error fetching articles');
+        throw new Error('Error al obtener los artículos');
       }
       return res.json();
     },
