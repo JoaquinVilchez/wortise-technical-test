@@ -1,6 +1,7 @@
 'use client';
 
 import { useClickOutside } from '@/src/hooks/useClickOutside';
+import { useDeleteArticle } from '@/src/hooks/useDeleteArticle';
 import { GetArticle } from '@/src/schemas/article';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
@@ -20,6 +21,12 @@ export default function ArticleCard({
   const [openOptions, setOpenOptions] = useState(false);
   const optionsRef = useClickOutside(() => setOpenOptions(false));
   const [openModal, setOpenModal] = useState(false);
+
+  const deleteMutation = useDeleteArticle();
+
+  const handleDelete = () => {
+    deleteMutation.mutate({ id: article._id });
+  };
 
   return (
     <>
@@ -111,7 +118,7 @@ export default function ArticleCard({
         isOpen={openModal}
         onClose={() => setOpenModal(false)}
         onConfirm={() => {
-          console.log('Artículo eliminado');
+          handleDelete();
           setOpenModal(false);
         }}
         title="Eliminar Artículo"
