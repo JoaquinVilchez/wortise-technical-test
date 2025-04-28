@@ -2,6 +2,12 @@
 
 Este es un proyecto desarrollado como parte de una prueba técnica para la posición de **Desarrollador/a Fullstack (Next.js)**.
 
+## Proyecto en Producción
+
+- **Link**: [wortise-technical-test.vercel.app](https://wortise-technical-test.vercel.app)
+- **Usuario de prueba**: `juanperez@gmail.com`
+- **Contraseña**: `12345678`
+
 ## Tecnologías utilizadas
 
 - **Next.js** (Page Router)
