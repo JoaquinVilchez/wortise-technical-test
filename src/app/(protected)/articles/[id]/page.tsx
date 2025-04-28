@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 export default function Article() {
   const { id } = useParams<{ id: string }>();
   const { data: article, isLoading, error } = useGetArticle(id);
+
   if (isLoading) {
     return <Spinner />;
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/authClient';
 import { useClickOutside } from '@/src/hooks/useClickOutside';
 import Image from 'next/image';
 import Link from 'next/link';

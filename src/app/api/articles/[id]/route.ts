@@ -1,4 +1,5 @@
 import { clientPromise } from '@/lib/db';
+import { getIdFromRequest } from '@/lib/getIdFromRequest';
 import { articleSchema } from '@/src/schemas/article';
 import { ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
@@ -8,10 +9,7 @@ export async function GET(request: NextRequest) {
     const db = (await clientPromise).db(process.env.MONGODB_DB);
     const collection = db.collection('articles');
 
-    const url = new URL(request.url);
-    const pathParts = url.pathname.split('/');
-    const id = pathParts[pathParts.length - 1];
-
+    const id = getIdFromRequest(request);
     if (!id) {
       return NextResponse.json(
         { error: 'ID inválido o no proporcionado' },
@@ -40,16 +38,14 @@ export async function PUT(request: NextRequest) {
     const db = (await clientPromise).db(process.env.MONGODB_DB);
     const collection = db.collection('articles');
 
-    const url = new URL(request.url);
-    const pathParts = url.pathname.split('/');
-    const id = pathParts[pathParts.length - 1];
-
+    const id = getIdFromRequest(request);
     if (!id) {
       return NextResponse.json(
         { error: 'ID inválido o no proporcionado' },
         { status: 400 },
       );
     }
+
     const body = await request.json();
 
     if (!body) {
@@ -89,10 +85,7 @@ export async function DELETE(request: NextRequest) {
     const db = (await clientPromise).db(process.env.MONGODB_DB);
     const collection = db.collection('articles');
 
-    const url = new URL(request.url);
-    const pathParts = url.pathname.split('/');
-    const id = pathParts[pathParts.length - 1];
-
+    const id = getIdFromRequest(request);
     if (!id) {
       return NextResponse.json(
         { error: 'ID inválido o no proporcionado' },

@@ -7,6 +7,13 @@ export async function POST(req: Request) {
     const body = await req.json();
     const data = articleSchema.parse(body);
 
+    const db = (await clientPromise).db(process.env.MONGODB_DB);
+    await db.collection('articles').insertOne({
+      ...data,
+      authorId: '1',
+      createdAt: new Date(),
+    });
+
     // const result = await getSession();
 
     // if (!('data' in result)) {
@@ -16,13 +23,6 @@ export async function POST(req: Request) {
     //   );
     // }
     // const userId = result.data.user.id;
-
-    const db = (await clientPromise).db(process.env.MONGODB_DB);
-    await db.collection('articles').insertOne({
-      ...data,
-      authorId: '1',
-      createdAt: new Date(),
-    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

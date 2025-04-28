@@ -43,15 +43,15 @@ Este es un proyecto desarrollado como parte de una prueba técnica para la posic
 
 ### Página principal del CMS
 
-- [] Listado de autores registrados
-- [] Cantidad total de artículos publicados por cada autor
+- [ ] Listado de autores registrados
+- [ ] Cantidad total de artículos publicados por cada autor
 
 ### Buscador (Server-side)
 
 - [x] Búsqueda de artículos filtrando por:
   - [x] Título
   - [x] Texto
-  - [] Nombre del autor
+  - [ ] Nombre del autor
 
 ---
 

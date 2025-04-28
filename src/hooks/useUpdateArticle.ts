@@ -16,7 +16,6 @@ export function useUpdateArticle() {
 
   const mutation = useMutation({
     mutationFn: async ({ id, data }: UpdateArticleParams) => {
-      console.log('EDITAR ARTÍCULO', id, data);
       const res = await fetch(`/api/articles/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),

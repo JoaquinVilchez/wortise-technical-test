@@ -3,11 +3,16 @@
 import ArticleForm from '@/src/app/components/forms/ArticleForm';
 import PageHeader from '@/src/app/components/PageHeader';
 import { useCreateArticle } from '@/src/hooks/useCreateArticle';
+import type { CreateArticle } from '@/src/schemas/article';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CreateArticle() {
-  const mutation = useCreateArticle();
+  const createMutation = useCreateArticle();
+
+  const createArticle = (data: CreateArticle) => {
+    createMutation.mutate(data);
+  };
 
   return (
     <>
@@ -24,8 +29,8 @@ export default function CreateArticle() {
         }
       />
       <ArticleForm
-        onSubmit={mutation.mutate}
-        isSubmitting={mutation.isPending}
+        onSubmit={createArticle}
+        isSubmitting={createMutation.isPending}
       />
     </>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { Article } from '@/src/schemas/article';
+import { CreateArticle } from '@/src/schemas/article';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
@@ -10,7 +10,7 @@ export function useCreateArticle() {
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: async (data: Omit<Article, 'authorId' | 'createdAt'>) => {
+    mutationFn: async (data: CreateArticle) => {
       const res = await fetch('/api/articles', {
         method: 'POST',
         body: JSON.stringify(data),

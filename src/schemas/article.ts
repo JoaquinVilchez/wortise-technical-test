@@ -14,8 +14,6 @@ export const articleSchema = z.object({
 
 export type Article = z.infer<typeof articleSchema>;
 
-export type GetArticle = Article & {
-  _id: string;
-};
-
+export type GetArticle = Article & { _id: string };
+export type CreateArticle = Omit<Article, 'authorId' | 'createdAt'>;
 export type UpdateArticle = Omit<Article, '_id' | 'createdAt'>;
