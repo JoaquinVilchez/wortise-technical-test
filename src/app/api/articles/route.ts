@@ -30,3 +30,45 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const db = (await clientPromise).db(process.env.MONGODB_DB);
+    const collection = db.collection('articles');
+
+    const { searchParams } = new URL(req.url);
+
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '6', 10);
+    const search = searchParams.get('search') || '';
+
+    const query: Record<string, unknown> = {};
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { body: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    const totalArticles = await collection.countDocuments(query);
+    const totalPages = Math.ceil(totalArticles / limit);
+
+    const articles = await collection
+      .find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    return NextResponse.json({
+      data: articles,
+      currentPage: page,
+      totalPages,
+      totalArticles,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Internal error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}

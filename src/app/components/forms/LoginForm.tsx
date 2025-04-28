@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../Button';
 import FormErrorMessage from './ui/FormErrorMessage';
 
 export default function LoginForm() {
@@ -76,13 +77,13 @@ export default function LoginForm() {
         </div>
       )}
 
-      <button
+      <Button
         type="submit"
         className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"
-        disabled={isSubmitting}
+        isLoading={isSubmitting}
       >
-        {isSubmitting ? 'Espere por favor' : 'Iniciar sesión'}
-      </button>
+        Iniciar sesión
+      </Button>
 
       <div className="text-center">
         <p>

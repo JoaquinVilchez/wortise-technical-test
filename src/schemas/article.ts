@@ -13,3 +13,7 @@ export const articleSchema = z.object({
 });
 
 export type Article = z.infer<typeof articleSchema>;
+
+export type DbArticle = Article & {
+  _id: string;
+};

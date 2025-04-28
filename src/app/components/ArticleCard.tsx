@@ -1,13 +1,22 @@
 'use client';
 
 import { useClickOutside } from '@/src/hooks/useClickOutside';
+import { DbArticle } from '@/src/schemas/article';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import Modal from './Modal';
 
-export default function ArticleCard({ showAuthor = true }) {
+interface ArticleCardProps {
+  article: DbArticle;
+  showAuthor?: boolean;
+}
+
+export default function ArticleCard({
+  article,
+  showAuthor = true,
+}: ArticleCardProps) {
   const [openOptions, setOpenOptions] = useState(false);
   const optionsRef = useClickOutside(() => setOpenOptions(false));
   const [openModal, setOpenModal] = useState(false);
@@ -31,13 +40,13 @@ export default function ArticleCard({ showAuthor = true }) {
           >
             <ul className="flex flex-col">
               <Link
-                href="/articles/1"
+                href={`/articles/${article._id}`}
                 className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
               >
                 Ver artículo
               </Link>
               <Link
-                href="/articles/1/edit"
+                href={`/articles/${article._id}/edit`}
                 className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 cursor-pointer"
               >
                 Editar
@@ -57,7 +66,7 @@ export default function ArticleCard({ showAuthor = true }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 pr-8">
           <Image
-            src="https://images.pexels.com/photos/29241269/pexels-photo-29241269/free-photo-of-shinkansen-moderno-en-una-estacion-de-tren-muy-concurrida.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={article.imageUrl}
             className="w-full object-cover rounded-lg h-30 md:h-70
           "
             width={1080}
@@ -67,20 +76,12 @@ export default function ArticleCard({ showAuthor = true }) {
           <div className="md:pl-5 flex flex-col justify-between mt-3">
             <div>
               <p className="text-xl md:text-3xl font-bold mb-1">
-                Avances en la Tecnología de Trenes de Alta Velocidad
+                {article.title}
               </p>
               <p className="text-gray-500 text-sm md:ml-1 mb-3">
-                Los trenes de alta velocidad están revolucionando el transporte
-                moderno, ofreciendo una alternativa rápida, eficiente y
-                sostenible para los viajeros. Japón, líder en esta tecnología,
-                ha presentado recientemente un nuevo modelo de tren que alcanza
-                velocidades de hasta 400 km/h, reduciendo significativamente los
-                tiempos de viaje entre las principales ciudades. Este avance no
-                solo mejora la conectividad, sino que también promueve el uso de
-                energías limpias y reduce la huella de carbono en comparación
-                con otros medios de transporte como los aviones. Expertos
-                aseguran que esta innovación marcará un antes y un después en la
-                industria ferroviaria global.
+                {article.body.length > 200
+                  ? article.body.slice(0, 400) + '...'
+                  : article.body}
               </p>
             </div>
             {showAuthor && (

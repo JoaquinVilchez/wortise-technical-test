@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
 import './globals.css';
 import Providers from './providers';
 
@@ -17,7 +18,10 @@ export default function RootLayout({
             </div>
           }
         >
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <ToastContainer />
+          </Providers>
         </Suspense>
       </body>
     </html>
